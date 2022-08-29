@@ -1,16 +1,30 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "lists.h"
 
 /**
- * main - check the code for Holberton School students.
- *
- * Return: Always 0.
+ * is_palindrome - frees a listint_t list
+ * @head: pointer to list to be freed
+ * Return: 1 if it is palidrome, 0 if it is not
  */
 
-int main(void)
+int is_palindrome(listint_t **head)
 {
-	listint_t *head;
+	int len = 0, i;
+	listint_t *h;
+	int aux[1000000];
 
-	return (0);
+	h = *head;
+	if (!h)
+		return (1);
+	while (h)
+	{
+		aux[len] = h->n;
+		h = h->next;
+		len++;
+	}
+	for (i = 0; i < len; i++)
+	{
+		if (aux[i] != aux[len - 1 - i])
+			return (0);
+	}
+	return (1);
 }
