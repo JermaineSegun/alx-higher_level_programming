@@ -3,7 +3,8 @@
 """ function deletes a key in a dictionary """
 
 def simple_delete(a_dictionary, key=""):
-    if key in a_dictionary:
+    a_dictionary = sorted(a_dictionary.keys())
+    if key in (a_dictionary):
         del a_dictionary[key]
-    return sorted(a_dictionary.items())
+    return a_dictionary
 
