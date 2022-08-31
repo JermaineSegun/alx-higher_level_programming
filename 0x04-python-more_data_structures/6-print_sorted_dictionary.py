@@ -1,9 +1,7 @@
 #!/usr/bin/python3
-
-""" functioin prints a dictionary by ordered keys """
-
 def print_sorted_dictionary(a_dictionary):
-    new_dict = {}
-
-    for i in sorted(a_dictionary):
-        print("{}: {}".format(i, a_dictionary[i]))
+    if a_dictionary is not None:
+        keys = sorted(a_dictionary.keys())
+        for k in keys:
+            print("{}: ".format(k), end='')
+            print(a_dictionary.get(k))
