@@ -26,6 +26,11 @@ def matrix_mu(m_a, m_b):
     if not all(isinstance(row, list) for row in m_b):
         raise TypeError("m_b must be a list of lists")
 
+    if m_a == [] or m_a == [[]]:
+        raise Valueerror("m_a can't be empty")
+    if m_b == [] or m_b == [[]]:
+        raise ValueError("m_b can't be empty")
+
     if not all((isinstance(ele, int) or isinstance(ele, float))
                for ele in [num for row in m_a for num in row]):
         raise TypeError("m_a should contain only integers or floats")
