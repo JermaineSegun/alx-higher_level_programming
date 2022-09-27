@@ -1,38 +1,34 @@
 #!/usr/bin/python3
+"""check stdin"""
 import sys
 
 
-def print_status():
-    '''
-        Printing the status of the request
-    '''
-    counter = 0
-    size = 0
-    file_size = 0
-    status_codes = {"200": 0, "301": 0, "400": 0, "401": 0,
-                    "403": 0, "404": 0, "405": 0, "500": 0}
+total_size = 0
+status = ['200', '301', '400', '401', '403', '404', '405', '500']
+times_status = [0, 0, 0, 0, 0, 0, 0, 0]
+counter = 0
 
-    for l in sys.stdin:
-        line = l.split()
-        try:
-            size += int(line[-1])
-            code = line[-2]
-            status_codes[code] += 1
-        except:
-            continue
-        if counter == 9:
-            print("File size: {}".format(size))
-            for key, val in sorted(status_codes.items()):
-                if (val != 0):
-                    print("{}: {}".format(key, val))
+try:
+    for line in sys.stdin:
+        line_list = line.split(" ")
+        if len(line_list) > 2:
+            size = line_list[-1]
+            code = line_list[-2]
+            if code in status:
+                i = status.index(code)
+                times_status[i] += 1
+            total_size += int(size)
+            counter += 1
+        if counter == 10:
+            print("File size: {:d}".format(total_size))
+            for i in range(8):
+                if times_status[i] != 0:
+                    print("{:}: {:d}".format(status[i], times_status[i]))
             counter = 0
-        counter += 1
-    if counter < 9:
-        print("File size: {}".format(size))
-        for key, val in sorted(status_codes.items()):
-            if (val != 0):
-                print("{}: {}".format(key, val))
-
-
-if __name__ == "__main__":
-    print_status()
+except Exception:
+    pass
+finally:
+    print("File size: {:d}".format(total_size))
+    for i in range(8):
+        if times_status[i] != 0:
+            print("{:}: {:d}".format(status[i], times_status[i]))
