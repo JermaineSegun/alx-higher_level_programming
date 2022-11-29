@@ -1,13 +1,8 @@
 #!/usr/bin/node
-// Script imports a dictionary of occurrences by user id
-// and computes a dictionary of user ids by occurrence.
+// script that concats 2 files.
 
-const { dict } = require('./101-data.js');
-const Dictn = {};
-for (const N in dict) {
-    if (Dictn[dict[N]] === undefined) {
-	Dictn[dict[N]] = [];
-    }
-    Dictn[dict[N]].push(N);
-}
-console.log(Dictn);
+const args = process.argv.slice(2);
+const fs = require('fs');
+const first = fs.readFileSync('./' + args[0]);
+const second = fs.readFileSync('./' + args[1]);
+fs.writeFileSync('./' + args[2], first + second);
